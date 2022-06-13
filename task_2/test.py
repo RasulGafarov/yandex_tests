@@ -18,7 +18,6 @@ class TestContact:
         except ImportError:
             assert False, "Не найден класс Contact, возможно вы его удалили или переименовали"
         if "show_contact" not in Contact.__dict__:
-            test = Contact.__dict__
             assert False, "У класса Contact не найден метод show_contact"
         user_code = get_user_code()
         if user_code.count("def print_contact"):
@@ -29,7 +28,6 @@ class TestContact:
             assert False, "Похоже вы не вызвали метод show_contact для объектов mike и vlad"
         if len(outer_list) != 5:
             assert False, "Вы вывели слишком много строк, в show_contact должен быть только один print"
-
 
     @pytest.mark.parametrize("name, phone, birthday, address, expected_result", [
         ("Саша", "+79991320798", "15.05.1895", "Россия, Уфа, Большая Пироговская, дом 35б, кв. 6",
@@ -58,7 +56,7 @@ class TestContact:
         capsys.readouterr()
         try:
             contact.show_contact()
-        except:
+        except TypeError:
             assert False
         out, err = capsys.readouterr()
         output_list = out.split("\n")
